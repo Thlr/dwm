@@ -1,11 +1,9 @@
 /* See LICENSE file for copyright and license details. */
 
-#include "vanitygaps.c"
 
 /* Constants */
 #define TERMINAL "kitty"
 #define TERMCLASS "kitty"
-#define FORCE_VSPLIT 1  /* nrowgrid layout: force two clients to always split vertically */
 
 /* appearance */
 static const unsigned int borderpx  = 2;        /* border pixel of windows */
@@ -33,17 +31,17 @@ static char *colors[][3] = {
        [SchemeSel]  = { selfgcolor,  selbgcolor,  selbordercolor  },
 };
 
-//typedef struct {
-//	const char *name;
-//	const void *cmd;
-//} Sp;
-//const char *spcmd1[] = {TERMINAL, "-n", "spterm", "-g", "120x34", NULL };
-//const char *spcmd2[] = {TERMINAL, "-n", "spcalc", "-f", "monospace:size=16", "-g", "50x20", "-e", "bc", "-lq", NULL };
-//static Sp scratchpads[] = {
-//	/* name          cmd  */
-//	{"spterm",      spcmd1},
-//	{"spranger",    spcmd2},
-//};
+typedef struct {
+	const char *name;
+	const void *cmd;
+} Sp;
+const char *spcmd1[] = {TERMINAL, "-n", "spterm", "-g", "120x34", NULL };
+const char *spcmd2[] = {TERMINAL, "-n", "spcalc", "-f", "monospace:size=16", "-g", "50x20", "-e", "bc", "-lq", NULL };
+static Sp scratchpads[] = {
+	/* name          cmd  */
+	{"spterm",      spcmd1},
+	{"spranger",    spcmd2},
+};
 
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
@@ -64,6 +62,9 @@ static const Rule rules[] = {
 static const float mfact     = 0.6; /* factor of master area size [0.05..0.95] */
 static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
+#include "vanitygaps.c"
+#define FORCE_VSPLIT 1  /* nrowgrid layout: force two clients to always split vertically */
+
 static const Layout layouts[] = {
 	/* symbol     arrange function */
  	{ "[]=",	tile },			/* Default: Master on left, slaves on right */
