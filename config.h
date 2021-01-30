@@ -34,7 +34,6 @@ static const char col_cyan[]        = "#005577";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeInv]  = { col_gray1, col_gray3, col_gray2 },
 	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
 };
 
@@ -147,7 +146,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_space,  zoom,            {0} },
 	{ MODKEY,             					XK_f,      togglefullscr,  {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
-	{ MODKEY|ShiftMask,             XK_q,      killclient,     {0} },
+	{ MODKEY, 				              XK_q,      killclient,     {0} },
 	{ MODKEY,                       XK_s,      togglesticky,   {0} },
 //	{ MODKEY,                       XK_o,      incnmaster,     {.i = +1 } },
 //	{ MODKEY|ShiftMask,             XK_O,      incnmaster,     {.i = -1 } },
@@ -172,7 +171,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_d,      spawn,          {.v = dmenucmd } },
 
 	/* multi monitors */
-	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
+	{ MODKEY,                       XK_comma,  focusmon,       {.i = +1 } },
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },

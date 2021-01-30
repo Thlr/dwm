@@ -16,7 +16,6 @@ patches included:
 - stacker
 - noborder
 - spawn cwd
-- showselmon
 - scratchpad
 - per tag
 - hide vacant tags
