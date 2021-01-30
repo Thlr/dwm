@@ -20,3 +20,4 @@ patches included:
 - scratchpad
 - per tag
 - hide vacant tags
+- statuscmd signal
