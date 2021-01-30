@@ -47,6 +47,7 @@ static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "[]=",      tile },    /* first entry is default */
 	{ "[M]",      monocle },
+	{ "[D]",      deck },
 	{ "><>",      NULL },    /* no layout function means floating behavior */
 };
 
@@ -81,9 +82,10 @@ static Key keys[] = {
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY|ShiftMask,             XK_q,      killclient,     {0} },
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} }, // tile
-	{ MODKEY,                       XK_u,      setlayout,      {.v = &layouts[1]} }, // monocle
+	{ MODKEY|ShiftMask,             XK_u,      setlayout,      {.v = &layouts[1]} }, // monocle
+	{ MODKEY,                       XK_u,      setlayout,      {.v = &layouts[2]} }, // deck
 	{ MODKEY,             					XK_f,      togglefullscr,  {0} },
-	{ MODKEY|ShiftMask,             XK_f,      setlayout,      {.v = &layouts[2]} }, // floating
+	{ MODKEY|ShiftMask,             XK_f,      setlayout,      {.v = &layouts[3]} }, // floating
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
