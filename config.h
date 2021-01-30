@@ -80,6 +80,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_q,      killclient,     {0} },
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} }, // tile
 	{ MODKEY,                       XK_u,      setlayout,      {.v = &layouts[1]} }, // monocle
+	{ MODKEY,             					XK_f,      togglefullscr,  {0} },
 	{ MODKEY|ShiftMask,             XK_f,      setlayout,      {.v = &layouts[2]} }, // floating
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
