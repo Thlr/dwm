@@ -119,6 +119,8 @@ static const char *screenshotcmd[] = { "flameshot gui", NULL };
 static const char *mutecmd[] = { "pamixer -t; kill -44 $(pidof dwmblocks)", NULL };
 static const char *incvolcmd[] = { "pamixer --allow-boost -i 5; kill -44 $(pidof dwmblocks)", NULL};
 static const char *decvolcmd[] = { "pamixer --allow-boost -d 5; kill -44 $(pidof dwmblocks)", NULL};
+static const char *incvolpluscmd[] = { "pamixer --allow-boost -i 15; kill -44 $(pidof dwmblocks)", NULL};
+static const char *decvolpluscmd[] = { "pamixer --allow-boost -d 15; kill -44 $(pidof dwmblocks)", NULL};
 static const char *micmutecmd[] = { "pactl set-source-mute @DEFAULT_SOURCE@ toggle", NULL};
 
 //  brightness
@@ -134,63 +136,91 @@ static const char *touchpadoffcmd[] = { "synclient TouchpadOff=0", NULL};
 static const char *calculatorcmd[] = { "gnome-calculator", NULL};
 
 /* BINDINGS */
+#include <X11/XF86keysym.h>
 static Key keys[] = {
-	/* modifier                     key        function        argument */
+	/* modifier                 key                       function        argument */
 
 	/* clients */
-	STACKKEYS(MODKEY,                          focus)
-	STACKKEYS(MODKEY|ShiftMask,                push)
-	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
-	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.2} },
-	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.2} },
-	{ MODKEY,                       XK_space,  zoom,            {0} },
-	{ MODKEY,             					XK_f,      togglefullscr,  {0} },
-	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
-	{ MODKEY, 				              XK_q,      killclient,     {0} },
-	{ MODKEY,                       XK_s,      togglesticky,   {0} },
-//	{ MODKEY,                       XK_o,      incnmaster,     {.i = +1 } },
-//	{ MODKEY|ShiftMask,             XK_O,      incnmaster,     {.i = -1 } },
+	STACKKEYS(MODKEY,                                     focus)
+	STACKKEYS(MODKEY|ShiftMask,                           push)
+	{ MODKEY,                   XK_Return,                spawn,          {.v = termcmd } },
+	{ MODKEY,                   XK_h,                     setmfact,       {.f = -0.2} },
+	{ MODKEY,                   XK_l,                     setmfact,       {.f = +0.2} },
+	{ MODKEY,                   XK_space,                 zoom,           {0} },
+	{ MODKEY,             			XK_f,                     togglefullscr,  {0} },
+	{ MODKEY|ShiftMask,         XK_space,                 togglefloating, {0} },
+	{ MODKEY, 				          XK_q,                     killclient,     {0} },
+	{ MODKEY,                   XK_s,                     togglesticky,   {0} },
+  //{ MODKEY,                   XK_o,                     incnmaster,     {.i = +1 } },
+  //{ MODKEY|ShiftMask,         XK_O,                     incnmaster,     {.i = -1 } },
 
 	/* layouts */
-	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} }, // tile
-	{ MODKEY|ShiftMask,             XK_t,      setlayout,      {.v = &layouts[1]} }, // bstacks
-	{ MODKEY,    			              XK_y,      setlayout,      {.v = &layouts[2]} }, // spiral
-	{ MODKEY|ShiftMask,             XK_y,      setlayout,      {.v = &layouts[3]} }, // dwindle
-	{ MODKEY,                       XK_u,      setlayout,      {.v = &layouts[4]} }, // deck
-	{ MODKEY|ShiftMask,             XK_u,      setlayout,      {.v = &layouts[5]} }, // monocle
-	{ MODKEY|ShiftMask,             XK_f,      setlayout,      {.v = &layouts[6]} }, // floating
+	{ MODKEY,                   XK_t,                     setlayout,      {.v = &layouts[0]} }, // tile
+	{ MODKEY|ShiftMask,         XK_t,                     setlayout,      {.v = &layouts[1]} }, // bstacks
+	{ MODKEY,    			          XK_y,                     setlayout,      {.v = &layouts[2]} }, // spiral
+	{ MODKEY|ShiftMask,         XK_y,                     setlayout,      {.v = &layouts[3]} }, // dwindle
+	{ MODKEY,                   XK_u,                     setlayout,      {.v = &layouts[4]} }, // deck
+	{ MODKEY|ShiftMask,         XK_u,                     setlayout,      {.v = &layouts[5]} }, // monocle
+	{ MODKEY|ShiftMask,         XK_f,                     setlayout,      {.v = &layouts[6]} }, // floating
 
 	/* gaps */
-	{ MODKEY,              	        XK_g,      togglegaps,     {0} },
-	{ MODKEY|ShiftMask,             XK_g,      defaultgaps,    {0} },
-	{ MODKEY,                       XK_w,      incrgaps,       {.i = +1 } },
-	{ MODKEY, 									    XK_x,      incrgaps,       {.i = -1 } },
+	{ MODKEY,              	    XK_g,                     togglegaps,     {0} },
+	{ MODKEY|ShiftMask,         XK_g,                     defaultgaps,    {0} },
+	{ MODKEY,                   XK_w,                     incrgaps,       {.i = +1 } },
+	{ MODKEY, 									XK_x,                     incrgaps,       {.i = -1 } },
 
-	/* dmenu, scratchpad */
-	{ MODKEY,                       XK_c,      togglescratch,  {.v = scratchpadcmd } },
-	{ MODKEY,                       XK_d,      spawn,          {.v = dmenucmd } },
+	/* scratchpad */
+	{ MODKEY,                   XK_c,                     togglescratch,  {.v = scratchpadcmd } },
+
+	/* dmenu */
+	{ MODKEY,                   XK_d,                     spawn,          {.v = dmenucmd } },
+	{ MODKEY,                   XK_BackSpace,             spawn,          {.v = sessionlockcmd } },
+	{ MODKEY|ShiftMask,         XK_BackSpace,             spawn,          {.v = sysactcmd } },
 
 	/* multi monitors */
-	{ MODKEY,                       XK_comma,  focusmon,       {.i = +1 } },
-	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
-	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
+	{ MODKEY,                   XK_comma,                 focusmon,       {.i = +1 } },
+	//{ MODKEY,                   XK_period,                focusmon,       {.i = +1 } },
+	{ MODKEY|ShiftMask,         XK_comma,                 tagmon,         {.i = -1 } },
+	//{ MODKEY|ShiftMask,         XK_period,                tagmon,         {.i = +1 } },
 
 	/* status bar */
-	{ MODKEY,                       XK_b,      togglebar,      {0} },
+	{ MODKEY,                   XK_b,                     togglebar,      {0} },
 
 	/* tags */
-	{ MODKEY,                       XK_Tab,    view,           {0} },
-	TAGKEYS(                        XK_ampersand,              0)
-	TAGKEYS(                        XK_eacute,			           1)
-	TAGKEYS(                        XK_quotedbl,			         2)
-	TAGKEYS(                        XK_apostrophe,			       3)
-	TAGKEYS(                        XK_parenleft,			         4)
-	TAGKEYS(                        XK_minus,			             5)
-	TAGKEYS(                        XK_egrave,			           6)
-	TAGKEYS(                        XK_underscore,			       7)
-	TAGKEYS(                        XK_ccedilla,			         8)
-	{ MODKEY,		 										XK_agrave,		   view,	   {.ui = ~0 } },
+	{ MODKEY,                   XK_Tab,                   view,           {0} },
+	TAGKEYS(                    XK_ampersand,                             0)
+	TAGKEYS(                    XK_eacute,		               	            1)
+	TAGKEYS(                    XK_quotedbl,	               		          2)
+	TAGKEYS(                    XK_apostrophe,               			        3)
+	TAGKEYS(                    XK_parenleft,	               		          4)
+	TAGKEYS(                    XK_minus,			                            5)
+	TAGKEYS(                    XK_egrave,		               	            6)
+	TAGKEYS(                    XK_underscore,               			        7)
+	TAGKEYS(                    XK_ccedilla,	               		          8)
+	{ MODKEY,		 								XK_agrave,                view,	          {.ui = ~0 } },
+
+	/* audio */
+	{ MODKEY, 									XK_asterisk,              spawn,          {.v = incvolcmd } },
+	{ MODKEY|ShiftMask,					XK_asterisk,              spawn,          {.v = incvolpluscmd } },
+	{ MODKEY, 									XK_ugrave,                spawn,          {.v = decvolcmd } },
+	{ MODKEY|ShiftMask,					XK_ugrave,                spawn,          {.v = decvolpluscmd } },
+	{ MODKEY, 									XK_m,                     spawn,          {.v = mutecmd } },
+	{ MODKEY|ShiftMask,					XK_m,                     spawn,          {.v = micmutecmd } },
+
+	/* special keys */
+	{ 0, 												XK_Print,     		    spawn,          {.v = screenshotcmd } },
+	{ 0, 												XF86XK_AudioMute,         spawn,          {.v = mutecmd } },
+	{ 0, 												XF86XK_AudioRaiseVolume,  spawn,          {.v = incvolcmd } },
+	{ 0, 												XF86XK_AudioLowerVolume,  spawn,          {.v = decvolcmd } },
+	{ 0, 												XF86XK_AudioMicMute,      spawn,          {.v = micmutecmd } },
+	{ 0, 												XF86XK_PowerOff,      		spawn,          {.v = sysactcmd } },
+	{ 0, 												XF86XK_Calculator,     		spawn,          {.v = calculatorcmd } },
+	{ 0, 												XF86XK_Sleep,     		    spawn,          {.v = sleepcmd } },
+	{ 0, 												XF86XK_TouchpadToggle,    spawn,          {.v = toggletouchpadcmd } },
+	{ 0, 												XF86XK_TouchpadOn,        spawn,          {.v = touchpadoncmd } },
+	{ 0, 												XF86XK_TouchpadOff,       spawn,          {.v = touchpadoffcmd } },
+	{ 0, 												XF86XK_MonBrightnessUp,   spawn,          {.v = incbrightnesscmd } },
+	{ 0, 												XF86XK_MonBrightnessDown, spawn,          {.v = decbrightnesscmd } },
 };
 
 /* BUTTON DEFINITIONS */
