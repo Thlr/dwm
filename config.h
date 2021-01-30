@@ -1,13 +1,13 @@
 /* See LICENSE file for copyright and license details. */
 
-/* Constants */
+/* CONSTANTS */
 #define TERMINAL "st"
 #define TERMCLASS "St"
 #define BROWSER "firefox"
 #define BROWSERCLASS "Firefox"
 #define FONT "Cousine Nerd Font Mono:style=Regular:size=12"
 
-/* appearance */
+/* APPEARANCE */
 static const unsigned int borderpx  = 3;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int swallowfloating    = 0;        /* 1 means swallow floating windows by default */
@@ -38,25 +38,27 @@ static const char *colors[][3]      = {
 	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
 };
 
-/* tagging */
+/* TAGS */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 
+/* RULES */
 static const Rule rules[] = {
 	/* xprop(1):
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class          			instance   	title      tags mask    isfloating   isterminal  noswallow  monitor */
-	{ NULL,    					    NULL,       "Event Tester",   0,            0,           0,         1,        -1 },
-	{ TERMCLASS,   					NULL,       NULL,       	    0,            0,           1,         0,        -1 },
-	{ "Gnome-calculator",   NULL,       NULL,       	    0,            1,           1,         0,        -1 },
-	{ "Pavucontrol",   			NULL,       NULL,       	    0,            1,           1,         0,        -1 },
-	{ "Blueman-manager",    NULL,       NULL,       	    0,            1,           1,         0,        -1 },
-	{ "MEGAsync",   				NULL,       NULL,       	    0,            1,           1,         0,        -1 },
-	{ "Transmission-gtk",   NULL,       NULL,       	    0,            1,           1,         0,        -1 },
+	/* class          			instance    title      tags mask    isfloating   isterminal  noswallow  monitor */
+	{ NULL,    					    NULL,         "Event Tester",   0,            0,           0,         1,        -1 },
+	{ TERMCLASS,   					NULL,         NULL,       	    0,            0,           1,         0,        -1 },
+	{ "Gnome-calculator",   NULL,         NULL,       	    0,            1,           1,         0,        -1 },
+	{ "Pavucontrol",   			NULL,         NULL,       	    0,            1,           1,         0,        -1 },
+	{ "Blueman-manager",    NULL,         NULL,       	    0,            1,           1,         0,        -1 },
+	{ "MEGAsync",   				NULL,         NULL,       	    0,            1,           1,         0,        -1 },
+	{ "Transmission-gtk",   NULL,         NULL,       	    0,            1,           1,         0,        -1 },
+	{ NULL, 							  "scratchpad", NULL, 			      0, 						1, 					 1, 				0, 				-1 },
 };
 
-/* layout(s) */
+/* LAYOUTS */
 static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
 static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
@@ -79,7 +81,7 @@ static const Layout layouts[] = {
 	{ "><>",      NULL },    /* no layout function means floating behavior */
 };
 
-/* key definitions */
+/* HELPER DEFINITIONS */
 #define MODKEY Mod4Mask
 #define TAGKEYS(KEY,TAG) \
 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
@@ -96,13 +98,43 @@ static const Layout layouts[] = {
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
-/* commands */
+/* COMMANDS */
+// dmenu
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
-static const char *termcmd[]  = { "st", NULL };
-static const char scratchpadname[] = "scratchpad";
-static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-g", "120x34", NULL };
 
+// terminal
+static const char *termcmd[]  = { TERMINAL, NULL };
+static const char scratchpadname[] = "scratchpad";
+static const char *scratchpadcmd[] = { TERMINAL, "-n", scratchpadname, "-g", "120x34", NULL };
+
+// system
+static const char *sessionlockcmd[] = { "sessionlock", NULL };
+static const char *sysactcmd[] = { "sysact", NULL };
+static const char *sleepcmd[] = { "sudo -A zzz", NULL };
+
+// screenshots
+static const char *screenshotcmd[] = { "flameshot gui", NULL };
+
+// audio
+static const char *mutecmd[] = { "pamixer -t; kill -44 $(pidof dwmblocks)", NULL };
+static const char *incvolcmd[] = { "pamixer --allow-boost -i 5; kill -44 $(pidof dwmblocks)", NULL};
+static const char *decvolcmd[] = { "pamixer --allow-boost -d 5; kill -44 $(pidof dwmblocks)", NULL};
+static const char *micmutecmd[] = { "pactl set-source-mute @DEFAULT_SOURCE@ toggle", NULL};
+
+//  brightness
+static const char *incbrightnesscmd[] = { "xbacklight -inc 5", NULL};
+static const char *decbrightnesscmd[] = { "xbacklight -dec 5", NULL};
+
+// touchpad
+static const char *toggletouchpadcmd[] = { "(synclient | grep 'TouchpadOff.*1' && synclient TouchpadOff=0) || synclient TouchpadOff=1", NULL};
+static const char *touchpadoncmd[] = { "synclient TouchpadOff=1", NULL};
+static const char *touchpadoffcmd[] = { "synclient TouchpadOff=0", NULL};
+
+// utilities
+static const char *calculatorcmd[] = { "gnome-calculator", NULL};
+
+/* BINDINGS */
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 
@@ -162,7 +194,7 @@ static Key keys[] = {
 	{ MODKEY,		 										XK_agrave,		   view,	   {.ui = ~0 } },
 };
 
-/* button definitions */
+/* BUTTON DEFINITIONS */
 /* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle, ClkClientWin, or ClkRootWin */
 static Button buttons[] = {
 	/* click                event mask      button          function        argument */
