@@ -168,13 +168,13 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,         XK_f,                     setlayout,      {.v = &layouts[6]} }, // floating
 
 	/* gaps */
-	{ MODKEY,              	    XK_g,                     togglegaps,     {0} },
-	{ MODKEY|ShiftMask,         XK_g,                     defaultgaps,    {0} },
+	{ MODKEY,              	    XK_a,                     togglegaps,     {0} },
+	{ MODKEY|ShiftMask,         XK_a,                     defaultgaps,    {0} },
 	{ MODKEY,                   XK_w,                     incrgaps,       {.i = +3 } },
 	{ MODKEY, 									XK_x,                     incrgaps,       {.i = -3 } },
 
 	/* scratchpad */
-	{ MODKEY,                   XK_c,                     togglescratch,  {.v = scratchpadcmd } },
+	{ MODKEY,                   XK_z,                     togglescratch,  {.v = scratchpadcmd } },
 
 	/* system */
 	{ MODKEY|ShiftMask,         XK_q,                     quit,           {0} },
@@ -185,7 +185,7 @@ static Key keys[] = {
 	{ MODKEY,                   XK_d,                     spawn,          {.v = dmenucmd } },
 
 	/* multi monitors */
-	{ MODKEY,                   XK_comma,                 focusmon,       {.i = +1 } },
+	{ MODKEY,                   XK_comma,                 focusmon,       {.i = -1 } },
 	//{ MODKEY,                   XK_period,                focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,         XK_comma,                 tagmon,         {.i = -1 } },
 	//{ MODKEY|ShiftMask,         XK_period,                tagmon,         {.i = +1 } },
@@ -237,6 +237,8 @@ static Button buttons[] = {
 	{ ClkStatusText,        0,              Button1,        sigdwmblocks,   {.i = 1} },
 	{ ClkStatusText,        0,              Button2,        sigdwmblocks,   {.i = 2} },
 	{ ClkStatusText,        0,              Button3,        sigdwmblocks,   {.i = 3} },
+	{ ClkStatusText,        0,              Button4,        sigdwmblocks,   {.i = 4} },
+	{ ClkStatusText,        0,              Button5,        sigdwmblocks,   {.i = 5} },
 	{ ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
 	{ ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
 	{ ClkWinTitle,          0,              Button2,        zoom,           {0} },
@@ -248,4 +250,3 @@ static Button buttons[] = {
 	{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
 	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
 };
-
