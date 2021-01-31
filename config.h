@@ -172,10 +172,13 @@ static Key keys[] = {
 	/* scratchpad */
 	{ MODKEY,                   XK_c,                     togglescratch,  {.v = scratchpadcmd } },
 
+	/* system */
+	{ MODKEY|ShiftMask,         XK_q,                     quit,           {0} },
+	{ MODKEY|ShiftMask,         XK_BackSpace,             spawn,          {.v = sysactcmd } },
+	{ MODKEY,                   XK_BackSpace,             spawn,          {.v = sessionlockcmd } },
+
 	/* dmenu */
 	{ MODKEY,                   XK_d,                     spawn,          {.v = dmenucmd } },
-	{ MODKEY,                   XK_BackSpace,             spawn,          {.v = sessionlockcmd } },
-	{ MODKEY|ShiftMask,         XK_BackSpace,             spawn,          {.v = sysactcmd } },
 
 	/* multi monitors */
 	{ MODKEY,                   XK_comma,                 focusmon,       {.i = +1 } },
