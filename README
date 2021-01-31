@@ -4,7 +4,7 @@ patches included:
 
 - vanitygaps
 - actualfullscreen
-- attachBelow
+- attachbelow
 - barheight
 - zoomswap
 - viewontag
@@ -17,6 +17,7 @@ patches included:
 - noborder
 - spawn cwd
 - scratchpad
-- per tag
+- pertag
 - hide vacant tags
 - statuscmd signal
+- cfacts

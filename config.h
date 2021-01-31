@@ -215,7 +215,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,					XK_m,                     spawn,          {.v = micmutecmd } },
 
 	/* special keys */
-	{ 0, 												XK_Print,     		    spawn,          {.v = screenshotcmd } },
+	{ 0, 												XK_Print,     		    		spawn,          {.v = screenshotcmd } },
 	{ 0, 												XF86XK_AudioMute,         spawn,          {.v = mutecmd } },
 	{ 0, 												XF86XK_AudioRaiseVolume,  spawn,          {.v = incvolcmd } },
 	{ 0, 												XF86XK_AudioLowerVolume,  spawn,          {.v = decvolcmd } },
