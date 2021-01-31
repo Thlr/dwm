@@ -58,7 +58,7 @@ static const Rule rules[] = {
 };
 
 /* LAYOUTS */
-static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
+static const float mfact     = 0.6; /* factor of master area size [0.05..0.95] */
 static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
 static const int attachbelow = 1;    /* 1 means attach after the currently active window */
@@ -146,6 +146,10 @@ static Key keys[] = {
 	{ MODKEY,                   XK_Return,                spawn,          {.v = termcmd } },
 	{ MODKEY,                   XK_h,                     setmfact,       {.f = -0.02} },
 	{ MODKEY,                   XK_l,                     setmfact,       {.f = +0.02} },
+	{ MODKEY,                   XK_o,                     setmfact,       {.f = 1 + mfact} }, // reset mfact
+	{ MODKEY|ShiftMask,         XK_h,     							  setcfact,       {.f = -0.25} },
+	{ MODKEY|ShiftMask,         XK_l,     							  setcfact,       {.f = +0.25} },
+	{ MODKEY|ShiftMask,         XK_o,     							  setcfact,       {.f =  0.00} },
 	{ MODKEY,                   XK_space,                 zoom,           {0} },
 	{ MODKEY,             			XK_f,                     togglefullscr,  {0} },
 	{ MODKEY|ShiftMask,         XK_space,                 togglefloating, {0} },
