@@ -108,32 +108,32 @@ static const char scratchpadname[] = "scratchpad";
 static const char *scratchpadcmd[] = { TERMINAL, "-n", scratchpadname, "-g", "120x34", NULL };
 
 // system
-static const char *sessionlockcmd[] = { "sessionlock", NULL };
-static const char *sysactcmd[] = { "sysact", NULL };
-static const char *sleepcmd[] = { "sudo -A zzz", NULL };
+static const char sessionlockcmd[] = "sessionlock";
+static const char sysactcmd[] = "sysact";
+static const char sleepcmd[] = "sudo -A zzz";
 
 // screenshots
-static const char *screenshotcmd[] = { "flameshot gui", NULL };
+static const char screenshotcmd[] = "flameshot gui";
 
 // audio
-static const char *mutecmd[] = { "pamixer -t; kill -44 $(pidof dwmblocks)", NULL };
-static const char *incvolcmd[] = { "pamixer --allow-boost -i 5; kill -44 $(pidof dwmblocks)", NULL};
-static const char *decvolcmd[] = { "pamixer --allow-boost -d 5; kill -44 $(pidof dwmblocks)", NULL};
-static const char *incvolpluscmd[] = { "pamixer --allow-boost -i 15; kill -44 $(pidof dwmblocks)", NULL};
-static const char *decvolpluscmd[] = { "pamixer --allow-boost -d 15; kill -44 $(pidof dwmblocks)", NULL};
-static const char *micmutecmd[] = { "pactl set-source-mute @DEFAULT_SOURCE@ toggle", NULL};
+static const char mutecmd[] = "pamixer -t; kill -44 $(pidof dwmblocks)";
+static const char incvolcmd[] = "pamixer --allow-boost -i 5; kill -44 $(pidof dwmblocks)";
+static const char decvolcmd[] = "pamixer --allow-boost -d 5; kill -44 $(pidof dwmblocks)";
+static const char incvolpluscmd[] = "pamixer --allow-boost -i 15; kill -44 $(pidof dwmblocks)";
+static const char decvolpluscmd[] = "pamixer --allow-boost -d 15; kill -44 $(pidof dwmblocks)";
+static const char micmutecmd[] = "pactl set-source-mute @DEFAULT_SOURCE@ toggle";
 
 //  brightness
-static const char *incbrightnesscmd[] = { "xbacklight -inc 5", NULL};
-static const char *decbrightnesscmd[] = { "xbacklight -dec 5", NULL};
+static const char incbrightnesscmd[] = "xbacklight -inc 5";
+static const char decbrightnesscmd[] = "xbacklight -dec 5";
 
 // touchpad
-static const char *toggletouchpadcmd[] = { "(synclient | grep 'TouchpadOff.*1' && synclient TouchpadOff=0) || synclient TouchpadOff=1", NULL};
-static const char *touchpadoncmd[] = { "synclient TouchpadOff=1", NULL};
-static const char *touchpadoffcmd[] = { "synclient TouchpadOff=0", NULL};
+static const char toggletouchpadcmd[] = "(synclient | grep 'TouchpadOff.*1' && synclient TouchpadOff=0) || synclient TouchpadOff=1";
+static const char touchpadoncmd[] = "synclient TouchpadOff=1";
+static const char touchpadoffcmd[] = "synclient TouchpadOff=0";
 
 // utilities
-static const char *calculatorcmd[] = { "gnome-calculator", NULL};
+static const char calculatorcmd[] = "gnome-calculator";
 
 /* BINDINGS */
 #include <X11/XF86keysym.h>
@@ -178,8 +178,8 @@ static Key keys[] = {
 
 	/* system */
 	{ MODKEY|ShiftMask,         XK_q,                     quit,           {0} },
-	{ MODKEY|ShiftMask,         XK_BackSpace,             spawn,          {.v = sysactcmd } },
-	{ MODKEY,                   XK_BackSpace,             spawn,          {.v = sessionlockcmd } },
+	{ MODKEY|ShiftMask,         XK_BackSpace,             spawn,          SHCMD(sysactcmd) },
+	{ MODKEY,                   XK_BackSpace,             spawn,          SHCMD(sessionlockcmd) },
 
 	/* dmenu */
 	{ MODKEY,                   XK_d,                     spawn,          {.v = dmenucmd } },
@@ -207,27 +207,27 @@ static Key keys[] = {
 	{ MODKEY,		 								XK_agrave,                view,	          {.ui = ~0 } },
 
 	/* audio */
-	{ MODKEY, 									XK_asterisk,              spawn,          {.v = incvolcmd } },
-	{ MODKEY|ShiftMask,					XK_asterisk,              spawn,          {.v = incvolpluscmd } },
-	{ MODKEY, 									XK_ugrave,                spawn,          {.v = decvolcmd } },
-	{ MODKEY|ShiftMask,					XK_ugrave,                spawn,          {.v = decvolpluscmd } },
-	{ MODKEY, 									XK_m,                     spawn,          {.v = mutecmd } },
-	{ MODKEY|ShiftMask,					XK_m,                     spawn,          {.v = micmutecmd } },
+	{ MODKEY, 									XK_asterisk,              spawn,          SHCMD(incvolcmd) },
+	{ MODKEY|ShiftMask,					XK_asterisk,              spawn,          SHCMD(incvolpluscmd) },
+	{ MODKEY, 									XK_ugrave,                spawn,          SHCMD(decvolcmd) },
+	{ MODKEY|ShiftMask,					XK_ugrave,                spawn,          SHCMD(decvolpluscmd) },
+	{ MODKEY, 									XK_m,                     spawn,          SHCMD(mutecmd) },
+	{ MODKEY|ShiftMask,					XK_m,                     spawn,          SHCMD(micmutecmd) },
 
 	/* special keys */
-	{ 0, 												XK_Print,     		    		spawn,          {.v = screenshotcmd } },
-	{ 0, 												XF86XK_AudioMute,         spawn,          {.v = mutecmd } },
-	{ 0, 												XF86XK_AudioRaiseVolume,  spawn,          {.v = incvolcmd } },
-	{ 0, 												XF86XK_AudioLowerVolume,  spawn,          {.v = decvolcmd } },
-	{ 0, 												XF86XK_AudioMicMute,      spawn,          {.v = micmutecmd } },
-	{ 0, 												XF86XK_PowerOff,      		spawn,          {.v = sysactcmd } },
-	{ 0, 												XF86XK_Calculator,     		spawn,          {.v = calculatorcmd } },
-	{ 0, 												XF86XK_Sleep,     		    spawn,          {.v = sleepcmd } },
-	{ 0, 												XF86XK_TouchpadToggle,    spawn,          {.v = toggletouchpadcmd } },
-	{ 0, 												XF86XK_TouchpadOn,        spawn,          {.v = touchpadoncmd } },
-	{ 0, 												XF86XK_TouchpadOff,       spawn,          {.v = touchpadoffcmd } },
-	{ 0, 												XF86XK_MonBrightnessUp,   spawn,          {.v = incbrightnesscmd } },
-	{ 0, 												XF86XK_MonBrightnessDown, spawn,          {.v = decbrightnesscmd } },
+	{ 0, 												XK_Print,     		    		spawn,          SHCMD(screenshotcmd) },
+	{ 0, 												XF86XK_AudioMute,         spawn,          SHCMD(mutecmd) },
+	{ 0, 												XF86XK_AudioRaiseVolume,  spawn,          SHCMD(incvolcmd) },
+	{ 0, 												XF86XK_AudioLowerVolume,  spawn,          SHCMD(decvolcmd) },
+	{ 0, 												XF86XK_AudioMicMute,      spawn,          SHCMD(micmutecmd) },
+	{ 0, 												XF86XK_PowerOff,      		spawn,          SHCMD(sysactcmd) },
+	{ 0, 												XF86XK_Calculator,     		spawn,          SHCMD(calculatorcmd) },
+	{ 0, 												XF86XK_Sleep,     		    spawn,          SHCMD(sleepcmd) },
+	{ 0, 												XF86XK_TouchpadToggle,    spawn,          SHCMD(toggletouchpadcmd) },
+	{ 0, 												XF86XK_TouchpadOn,        spawn,          SHCMD(touchpadoncmd) },
+	{ 0, 												XF86XK_TouchpadOff,       spawn,          SHCMD(touchpadoffcmd) },
+	{ 0, 												XF86XK_MonBrightnessUp,   spawn,          SHCMD(incbrightnesscmd) },
+	{ 0, 												XF86XK_MonBrightnessDown, spawn,          SHCMD(decbrightnesscmd) },
 };
 
 /* BUTTON DEFINITIONS */
