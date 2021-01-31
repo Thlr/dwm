@@ -16,7 +16,7 @@ static const unsigned int systrayspacing = 3;   /* systray spacing */
 static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display systray on the first monitor, False: display systray on the last monitor*/
 static const int showsystray        = 1;     /* 0 means no systray */
 static const unsigned int gappih    = 10;       /* horiz inner gap between windows */
-static const unsigned int gappiv    = 20;       /* vert inner gap between windows */
+static const unsigned int gappiv    = 15;       /* vert inner gap between windows */
 static const unsigned int gappoh    = 10;       /* horiz outer gap between windows and screen edge */
 static const unsigned int gappov    = 20;       /* vert outer gap between windows and screen edge */
 static const int smartgaps          = 0;        /* 1 means no outer gap when there is only one window */
@@ -144,8 +144,8 @@ static Key keys[] = {
 	STACKKEYS(MODKEY,                                     focus)
 	STACKKEYS(MODKEY|ShiftMask,                           push)
 	{ MODKEY,                   XK_Return,                spawn,          {.v = termcmd } },
-	{ MODKEY,                   XK_h,                     setmfact,       {.f = -0.2} },
-	{ MODKEY,                   XK_l,                     setmfact,       {.f = +0.2} },
+	{ MODKEY,                   XK_h,                     setmfact,       {.f = -0.02} },
+	{ MODKEY,                   XK_l,                     setmfact,       {.f = +0.02} },
 	{ MODKEY,                   XK_space,                 zoom,           {0} },
 	{ MODKEY,             			XK_f,                     togglefullscr,  {0} },
 	{ MODKEY|ShiftMask,         XK_space,                 togglefloating, {0} },
@@ -166,8 +166,8 @@ static Key keys[] = {
 	/* gaps */
 	{ MODKEY,              	    XK_g,                     togglegaps,     {0} },
 	{ MODKEY|ShiftMask,         XK_g,                     defaultgaps,    {0} },
-	{ MODKEY,                   XK_w,                     incrgaps,       {.i = +1 } },
-	{ MODKEY, 									XK_x,                     incrgaps,       {.i = -1 } },
+	{ MODKEY,                   XK_w,                     incrgaps,       {.i = +3 } },
+	{ MODKEY, 									XK_x,                     incrgaps,       {.i = -3 } },
 
 	/* scratchpad */
 	{ MODKEY,                   XK_c,                     togglescratch,  {.v = scratchpadcmd } },
