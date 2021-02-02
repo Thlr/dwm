@@ -606,7 +606,7 @@ buttonpress(XEvent *e)
 			arg.ui = 1 << i;
 		} else if (ev->x < x + blw)
 			click = ClkLtSymbol;
-		else if (ev->x > selmon->ww - (int)TEXTW(stext) - getsystraywidth() + lrpad) {
+		else if (ev->x > (x = selmon->ww - (int)TEXTW(stext) - getsystraywidth() + lrpad)) {
 			click = ClkStatusText;
 			char *text = rawstext;
 			int i = -1;
@@ -616,7 +616,7 @@ buttonpress(XEvent *e)
 				if ((unsigned char)text[i] < ' ') {
 					ch = text[i];
 					text[i] = '\0';
-					x += TEXTW(text) - lrpad;
+					x += (int)TEXTW(text) - lrpad;
 					text[i] = ch;
 					text += i+1;
 					i = -1;
