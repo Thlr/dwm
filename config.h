@@ -5,7 +5,10 @@
 #define TERMCLASS "St"
 #define BROWSER "firefox"
 #define BROWSERCLASS "Firefox"
-#define FONT "Cousine Nerd Font Mono:style=Regular:size=12"
+#define FONT "Cousine Nerd Font Mono:style=Regular:size=13"
+//#define FONT "JetBrainsMono Nerd Font Mono:style=Regular"
+//#define FONT "Hack Nerd Font Mono:style=Regular:size=12"
+//#define FONT "Ubuntu Nerd Font Mono:style=Regular:size=12"
 
 /* APPEARANCE */
 static const unsigned int borderpx  = 3;        /* border pixel of windows */
@@ -105,7 +108,7 @@ static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont,
 // terminal
 static const char *termcmd[]  = { TERMINAL, NULL };
 static const char scratchpadname[] = "scratchpad";
-static const char *scratchpadcmd[] = { TERMINAL, "-n", scratchpadname, "-g", "120x34", NULL };
+static const char *scratchpadcmd[] = { TERMINAL, "-n", scratchpadname, "-g", "80x34", NULL };
 
 // system
 static const char sessionlockcmd[] = "sessionlock";
