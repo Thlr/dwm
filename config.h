@@ -61,7 +61,6 @@ static const Rule rules[] = {
 	{ "Blueman-manager",    NULL,         NULL,       	  0,         0,          1,          0,          1,        	-1 },
 	{ "MEGAsync",   				NULL,         NULL,       	  0,         0,          1,          0,          1,        	-1 },
 	{ "Transmission-gtk",   NULL,         NULL,       	  0,         1,          1,          0,          1,        	-1 },
-	{ NULL, 							  "scratchpad", NULL, 			    0,         1,				   1,          0,          0,        	-1 },
 };
 
 /* LAYOUTS */
@@ -111,8 +110,6 @@ static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont,
 
 // terminal
 static const char *termcmd[]  = { TERMINAL, NULL };
-static const char scratchpadname[] = "scratchpad";
-static const char *scratchpadcmd[] = { TERMINAL, "-n", scratchpadname, "-g", "80x34", NULL };
 
 // system
 static const char sessionlockcmd[] = "sessionlock";
@@ -181,7 +178,7 @@ static Key keys[] = {
 	{ MODKEY, 									XK_x,                     incrgaps,       {.i = -3 } },
 
 	/* scratchpad */
-	{ MODKEY,                   XK_z,                     togglescratch,  {.v = scratchpadcmd } },
+//	{ MODKEY,                   XK_z,                     togglescratch,  {.v = scratchpadcmd } },
 
 	/* system */
 	{ MODKEY|ShiftMask,         XK_q,                     quit,           {0} },
