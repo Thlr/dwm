@@ -5,19 +5,21 @@
 #define TERMCLASS "St"
 #define BROWSER "firefox"
 #define BROWSERCLASS "Firefox"
-#define FONT "Cousine Nerd Font Mono:style=Regular:size=13"
-//#define FONT "JetBrainsMono Nerd Font Mono:style=Regular"
+//#define FONT "Cousine Nerd Font Mono:style=Regular:size=13"
+//#define FONT "JetBrainsMono Nerd Font Mono:style=Regular:size=12"
 //#define FONT "Hack Nerd Font Mono:style=Regular:size=12"
 //#define FONT "Ubuntu Nerd Font Mono:style=Regular:size=12"
+#define FONT "Noto Mono:style=Regular:size=13"
 
 /* APPEARANCE */
-static const unsigned int borderpx  = 3;        /* border pixel of windows */
+static const unsigned int borderpx  = 2;        /* border pixel of windows */
+static const Bool smartborders      = False;    /* No border when there is only one window */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int swallowfloating    = 0;        /* 1 means swallow floating windows by default */
 static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
 static const unsigned int systrayspacing = 3;   /* systray spacing */
 static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display systray on the first monitor, False: display systray on the last monitor*/
-static const int showsystray        = 1;     /* 0 means no systray */
+static const int showsystray        = 1;        /* 0 means no systray */
 static const unsigned int gappih    = 10;       /* horiz inner gap between windows */
 static const unsigned int gappiv    = 15;       /* vert inner gap between windows */
 static const unsigned int gappoh    = 10;       /* horiz outer gap between windows and screen edge */
@@ -34,11 +36,12 @@ static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
 static const char col_gray4[]       = "#eeeeee";
 static const char col_cyan[]        = "#005577";
+static const char col_cyan_light[]  = "#196684";
 static const char col_red[] 				= "#af1b1b";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_cyan,  col_red },
+	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan_light },
 };
 
 /* TAGS */
@@ -62,7 +65,7 @@ static const Rule rules[] = {
 };
 
 /* LAYOUTS */
-static const float mfact     = 0.6; /* factor of master area size [0.05..0.95] */
+static const float mfact     = 0.5; /* factor of master area size [0.05..0.95] */
 static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
 static const int attachbelow = 1;    /* 1 means attach after the currently active window */
@@ -159,8 +162,8 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,         XK_space,                 togglefloating, {0} },
 	{ MODKEY, 				          XK_q,                     killclient,     {0} },
 	{ MODKEY,                   XK_s,                     togglesticky,   {0} },
-  //{ MODKEY,                   XK_o,                     incnmaster,     {.i = +1 } },
-  //{ MODKEY|ShiftMask,         XK_O,                     incnmaster,     {.i = -1 } },
+  { MODKEY,                   XK_i,                     incnmaster,     {.i = +1 } },
+  { MODKEY|ShiftMask,         XK_I,                     incnmaster,     {.i = -1 } },
 
 	/* layouts */
 	{ MODKEY,                   XK_t,                     setlayout,      {.v = &layouts[0]} }, // tile
