@@ -162,17 +162,18 @@ static Key keys[] = {
 	{ MODKEY,                   XK_Return,                spawn,          {.v = termcmd } },
 	{ MODKEY,                   XK_h,                     setmfact,       {.f = -0.02} },
 	{ MODKEY,                   XK_l,                     setmfact,       {.f = +0.02} },
-	{ MODKEY,                   XK_o,                     setmfact,       {.f = 1 + mfact} }, // reset mfact
+	{ MODKEY,                   XK_equal,                 setmfact,       {.f = 1 + mfact} }, // reset mfact
 	{ MODKEY|ShiftMask,         XK_h,     							  setcfact,       {.f = -0.25} },
 	{ MODKEY|ShiftMask,         XK_l,     							  setcfact,       {.f = +0.25} },
-	{ MODKEY|ShiftMask,         XK_o,     							  setcfact,       {.f =  0.00} },
+	{ MODKEY|ShiftMask,         XK_equal,     					  setcfact,       {.f =  0.00} }, // reset cfact
 	{ MODKEY,                   XK_space,                 zoom,           {0} },
 	{ MODKEY,             			XK_f,                     togglefullscr,  {0} },
 	{ MODKEY|ShiftMask,         XK_space,                 togglefloating, {0} },
 	{ MODKEY, 				          XK_q,                     killclient,     {0} },
 	{ MODKEY,                   XK_s,                     togglesticky,   {0} },
   { MODKEY,                   XK_i,                     incnmaster,     {.i = +1 } },
-  { MODKEY|ShiftMask,         XK_I,                     incnmaster,     {.i = -1 } },
+  { MODKEY|ShiftMask,         XK_i,                     incnmaster,     {.i = -1 } },
+	{ MODKEY,                   XK_o,                     resetnmaster,   {0} },
 
 	/* layouts */
 	{ MODKEY,                   XK_t,                     setlayout,      {.v = &layouts[0]} }, // tile
