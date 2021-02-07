@@ -16,9 +16,12 @@ patches included:
 - stacker
 - noborder
 - spawn cwd
-- scratchpad
+- scratchpads
 - pertag
 - hide vacant tags
 - statuscmd signal
 - cfacts
 - centered
+- restartsig
+- reset nmaster
+- reset layout
