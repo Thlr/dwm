@@ -44,6 +44,17 @@ static const char *colors[][3]      = {
 	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan_light },
 };
 
+typedef struct {
+	const char *name;
+	const void *cmd;
+} Sp;
+
+const char *spcmd1[] = {"st", "-n", "spterm", "-g", "80x24", NULL };
+static Sp scratchpads[] = {
+	/* name          cmd  */
+	{"spterm",      spcmd1},
+};
+
 /* TAGS */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 
@@ -61,6 +72,7 @@ static const Rule rules[] = {
 	{ "Blueman-manager",    NULL,         NULL,       	  0,         0,          1,          0,          1,        	-1 },
 	{ "MEGAsync",   				NULL,         NULL,       	  0,         0,          1,          0,          1,        	-1 },
 	{ "Transmission-gtk",   NULL,         NULL,       	  0,         1,          1,          0,          1,        	-1 },
+	{ NULL,		              "spterm",	    NULL,		        SPTAG(0),	 1,			     1,          1,          0,         -1 },
 };
 
 /* LAYOUTS */
@@ -177,8 +189,8 @@ static Key keys[] = {
 	{ MODKEY,                   XK_w,                     incrgaps,       {.i = +3 } },
 	{ MODKEY, 									XK_x,                     incrgaps,       {.i = -3 } },
 
-	/* scratchpad */
-//	{ MODKEY,                   XK_z,                     togglescratch,  {.v = scratchpadcmd } },
+	/* scratchpads */
+	{ MODKEY,                   XK_z,                     togglescratch,  {.ui = 0 } },
 
 	/* system */
 	{ MODKEY|ShiftMask,         XK_q,                     quit,           {0} },
