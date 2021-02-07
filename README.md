@@ -15,7 +15,6 @@ patches included:
 - statusallmons
 - stacker
 - noborder
-- spawn cwd
 - scratchpads
 - pertag
 - hide vacant tags
