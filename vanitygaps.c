@@ -150,7 +150,7 @@ getgaps(Monitor *m, int *oh, int *ov, int *ih, int *iv, unsigned int *nc)
 	#endif // PERTAG_PATCH
 	Client *c;
 
-	for (n = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), n++);
+	for (n = 0, c = nexttiled(m->cl->clients, m); c; c = nexttiled(c->next, m), n++);
 	if (smartgaps && n == 1) {
 		oe = 0; // outer gaps disabled when only one client
 	}
@@ -170,13 +170,13 @@ getfacts(Monitor *m, int msize, int ssize, float *mf, float *sf, int *mr, int *s
 	int mtotal = 0, stotal = 0;
 	Client *c;
 
-	for (n = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), n++)
+	for (n = 0, c = nexttiled(m->cl->clients, m); c; c = nexttiled(c->next, m), n++)
 		if (n < m->nmaster)
 			mfacts += c->cfact;
 		else
 			sfacts += c->cfact;
 
-	for (n = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), n++)
+	for (n = 0, c = nexttiled(m->cl->clients, m); c; c = nexttiled(c->next, m), n++)
 		if (n < m->nmaster)
 			mtotal += msize * (c->cfact / mfacts);
 		else
@@ -226,7 +226,7 @@ bstack(Monitor *m)
 
 	getfacts(m, mw, sw, &mfacts, &sfacts, &mrest, &srest);
 
-	for (i = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++) {
+	for (i = 0, c = nexttiled(m->cl->clients, m); c; c = nexttiled(c->next, m), i++) {
 		if (i < m->nmaster) {
 			resize(c, mx, my, mw * (c->cfact / mfacts) + (i < mrest ? 1 : 0) - (2*c->bw), mh - (2*c->bw), 0);
 			mx += WIDTH(c) + iv;
@@ -268,7 +268,7 @@ bstackhoriz(Monitor *m)
 
 	getfacts(m, mw, sh, &mfacts, &sfacts, &mrest, &srest);
 
-	for (i = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++) {
+	for (i = 0, c = nexttiled(m->cl->clients, m); c; c = nexttiled(c->next, m), i++) {
 		if (i < m->nmaster) {
 			resize(c, mx, my, mw * (c->cfact / mfacts) + (i < mrest ? 1 : 0) - (2*c->bw), mh - (2*c->bw), 0);
 			mx += WIDTH(c) + iv;
@@ -329,7 +329,7 @@ centeredmaster(Monitor *m)
 	}
 
 	/* calculate facts */
-	for (n = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), n++) {
+	for (n = 0, c = nexttiled(m->cl->clients, m); c; c = nexttiled(c->next, m), n++) {
 		if (!m->nmaster || n < m->nmaster)
 			mfacts += c->cfact;
 		else if ((n - m->nmaster) % 2)
@@ -338,7 +338,7 @@ centeredmaster(Monitor *m)
 			rfacts += c->cfact; // total factor of right hand stack area
 	}
 
-	for (n = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), n++)
+	for (n = 0, c = nexttiled(m->cl->clients, m); c; c = nexttiled(c->next, m), n++)
 		if (!m->nmaster || n < m->nmaster)
 			mtotal += mh * (c->cfact / mfacts);
 		else if ((n - m->nmaster) % 2)
@@ -350,7 +350,7 @@ centeredmaster(Monitor *m)
 	lrest = lh - ltotal;
 	rrest = rh - rtotal;
 
-	for (i = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++) {
+	for (i = 0, c = nexttiled(m->cl->clients, m); c; c = nexttiled(c->next, m), i++) {
 		if (!m->nmaster || i < m->nmaster) {
 			/* nmaster clients are stacked vertically, in the center of the screen */
 			resize(c, mx, my, mw - (2*c->bw), mh * (c->cfact / mfacts) + (i < mrest ? 1 : 0) - (2*c->bw), 0);
@@ -409,7 +409,7 @@ centeredfloatingmaster(Monitor *m)
 
 	getfacts(m, mw, sw, &mfacts, &sfacts, &mrest, &srest);
 
-	for (i = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++)
+	for (i = 0, c = nexttiled(m->cl->clients, m); c; c = nexttiled(c->next, m), i++)
 		if (i < m->nmaster) {
 			/* nmaster clients are stacked horizontally, in the center of the screen */
 			resize(c, mx, my, mw * (c->cfact / mfacts) + (i < mrest ? 1 : 0) - (2*c->bw), mh - (2*c->bw), 0);
@@ -457,7 +457,7 @@ deck(Monitor *m)
 	if (n - m->nmaster > 0) /* override layout symbol */
 		snprintf(m->ltsymbol, sizeof m->ltsymbol, "D %d", n - m->nmaster);
 
-	for (i = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++)
+	for (i = 0, c = nexttiled(m->cl->clients, m); c; c = nexttiled(c->next, m), i++)
 		if (i < m->nmaster) {
 			resize(c, mx, my, mw - (2*c->bw), mh * (c->cfact / mfacts) + (i < mrest ? 1 : 0) - (2*c->bw), 0);
 			my += HEIGHT(c) + ih;
@@ -488,7 +488,7 @@ fibonacci(Monitor *m, int s)
 	nw = m->ww - 2*ov;
 	nh = m->wh - 2*oh;
 
-	for (i = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next)) {
+	for (i = 0, c = nexttiled(m->cl->clients, m); c; c = nexttiled(c->next, m)) {
 		if (r) {
 			if ((i % 2 && (nh - ih) / 2 <= (bh + 2*c->bw))
 			   || (!(i % 2) && (nw - iv) / 2 <= (bh + 2*c->bw))) {
@@ -601,7 +601,7 @@ gaplessgrid(Monitor *m)
 	x = m->wx + ov;
 	y = m->wy + oh;
 
-	for (i = 0, c = nexttiled(m->clients); c; i++, c = nexttiled(c->next)) {
+	for (i = 0, c = nexttiled(m->cl->clients, m); c; i++, c = nexttiled(c->next, m)) {
 		if (i/rows + 1 > cols - n%cols) {
 			rows = n/cols + 1;
 			ch = (m->wh - 2*oh - ih * (rows - 1)) / rows;
@@ -647,7 +647,7 @@ grid(Monitor *m)
 	cw = (m->ww - 2*ov - iv * (cols - 1)) / (cols ? cols : 1);
 	chrest = (m->wh - 2*oh - ih * (rows - 1)) - ch * rows;
 	cwrest = (m->ww - 2*ov - iv * (cols - 1)) - cw * cols;
-	for (i = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++) {
+	for (i = 0, c = nexttiled(m->cl->clients, m); c; c = nexttiled(c->next, m), i++) {
 		cc = i / rows;
 		cr = i % rows;
 		cx = m->wx + ov + cc * (cw + iv) + MIN(cc, cwrest);
@@ -696,13 +696,13 @@ horizgrid(Monitor *m) {
 	}
 
 	/* calculate facts */
-	for (i = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++)
+	for (i = 0, c = nexttiled(m->cl->clients, m); c; c = nexttiled(c->next, m), i++)
 		if (i < ntop)
 			mfacts += c->cfact;
 		else
 			sfacts += c->cfact;
 
-	for (i = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++)
+	for (i = 0, c = nexttiled(m->cl->clients, m); c; c = nexttiled(c->next, m), i++)
 		if (i < ntop)
 			mtotal += mh * (c->cfact / mfacts);
 		else
@@ -711,7 +711,7 @@ horizgrid(Monitor *m) {
 	mrest = mh - mtotal;
 	srest = sw - stotal;
 
-	for (i = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++)
+	for (i = 0, c = nexttiled(m->cl->clients, m); c; c = nexttiled(c->next, m), i++)
 		if (i < ntop) {
 			resize(c, mx, my, mw * (c->cfact / mfacts) + (i < mrest ? 1 : 0) - (2*c->bw), mh - (2*c->bw), 0);
 			mx += WIDTH(c) + iv;
@@ -758,7 +758,7 @@ nrowgrid(Monitor *m)
 	ch = (m->wh - 2*oh - ih*(rows - 1)) / rows;
 	uh = ch;
 
-	for (c = nexttiled(m->clients); c; c = nexttiled(c->next), ci++) {
+	for (c = nexttiled(m->cl->clients, m); c; c = nexttiled(c->next, m), ci++) {
 		if (ci == cols) {
 			uw = 0;
 			ci = 0;
@@ -811,7 +811,7 @@ tile(Monitor *m)
 
 	getfacts(m, mh, sh, &mfacts, &sfacts, &mrest, &srest);
 
-	for (i = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++)
+	for (i = 0, c = nexttiled(m->cl->clients, m); c; c = nexttiled(c->next, m), i++)
 		if (i < m->nmaster) {
 			resize(c, mx, my, mw - (2*c->bw), mh * (c->cfact / mfacts) + (i < mrest ? 1 : 0) - (2*c->bw), 0);
 			if (my + HEIGHT(c) + ih < m->wh)
