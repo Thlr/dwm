@@ -29,7 +29,7 @@ static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const int user_bh            = 0;        /* 0 means that dwm will calculate bar height, >= 1 means dwm will user_bh as bar height */
 
-static const char *fonts[]          = { FONT };
+static const char *fonts[]          = { FONT, "Ubuntu Nerd Font Mono:style=Regular:size=12" };
 static const char dmenufont[]       = FONT;
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
@@ -49,7 +49,7 @@ typedef struct {
 	const void *cmd;
 } Sp;
 
-const char *spcmd1[] = {"st", "-n", "spterm", "-g", "80x24", NULL };
+const char *spcmd1[] = { TERMINAL, "-n", "spterm", "-g", "80x24", NULL };
 static Sp scratchpads[] = {
 	/* name          cmd  */
 	{"spterm",      spcmd1},
@@ -72,7 +72,7 @@ static const Rule rules[] = {
 	{ "Blueman-manager",    NULL,         NULL,       	  0,         0,          1,          0,          1,        	-1 },
 	{ "MEGAsync",   				NULL,         NULL,       	  0,         0,          1,          0,          1,        	-1 },
 	{ "Transmission-gtk",   NULL,         NULL,       	  0,         1,          1,          0,          1,        	-1 },
-	{ NULL,		              "spterm",	    NULL,		        SPTAG(0),	 1,			     1,          1,          0,         -1 },
+	{ "spterm",		          NULL,   	    NULL,		        SPTAG(0),	 1,			     1,          1,          0,         -1 },
 };
 
 /* LAYOUTS */
@@ -81,7 +81,7 @@ static const int nmaster            = 1;    /* number of clients in master area 
 static const int resizehints        = 1;    /* 1 means respect size hints in tiled resizals */
 static const int attachbelow        = 1;    /* 1 means attach after the currently active window */
 static const int autoresetlayouts   = 0;    /* Automatically resets layouts when only one client is visible */
-static const Bool viewontag         = True; /* Switch view on tag switch */
+static const Bool viewontag         = False; /* Switch view on tag switch */
 
 #define FORCE_VSPLIT 1  /* nrowgrid layout: force two clients to always split vertically */
 #include "vanitygaps.c"
@@ -135,11 +135,11 @@ static const char screenshotcmd[] = "flameshot gui";
 
 // audio
 static const char mutecmd[] = "pamixer -t; kill -44 $(pidof dwmblocks)";
-static const char incvolcmd[] = "pamixer --allow-boost -i 5; kill -44 $(pidof dwmblocks)";
-static const char decvolcmd[] = "pamixer --allow-boost -d 5; kill -44 $(pidof dwmblocks)";
-static const char incvolpluscmd[] = "pamixer --allow-boost -i 15; kill -44 $(pidof dwmblocks)";
-static const char decvolpluscmd[] = "pamixer --allow-boost -d 15; kill -44 $(pidof dwmblocks)";
-static const char micmutecmd[] = "pactl set-source-mute @DEFAULT_SOURCE@ toggle";
+static const char incvolcmd[] = "pamixer -i 5; kill -44 $(pidof dwmblocks)";
+static const char decvolcmd[] = "pamixer -d 5; kill -44 $(pidof dwmblocks)";
+static const char incvolpluscmd[] = "pamixer --allow-boost -i 10; kill -44 $(pidof dwmblocks)";
+static const char decvolpluscmd[] = "pamixer --allow-boost -d 10; kill -44 $(pidof dwmblocks)";
+static const char micmutecmd[] = "pactl set-source-mute @DEFAULT_SOURCE@ toggle; kill -44 $(pidof dwmblocks)";
 
 //  brightness
 static const char incbrightnesscmd[] = "xbacklight -inc 5";
