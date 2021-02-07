@@ -27,8 +27,8 @@ static const unsigned int gappov    = 10;       /* vert outer gap between window
 static const int smartgaps          = 0;        /* 1 means no outer gap when there is only one window */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const Bool viewontag         = True;     /* Switch view on tag switch */
 static const int user_bh            = 0;        /* 0 means that dwm will calculate bar height, >= 1 means dwm will user_bh as bar height */
+
 static const char *fonts[]          = { FONT };
 static const char dmenufont[]       = FONT;
 static const char col_gray1[]       = "#222222";
@@ -76,11 +76,12 @@ static const Rule rules[] = {
 };
 
 /* LAYOUTS */
-static const float mfact     = 0.5; /* factor of master area size [0.05..0.95] */
-static const int nmaster     = 1;    /* number of clients in master area */
-static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
-static const int attachbelow = 1;    /* 1 means attach after the currently active window */
-static const int autoresetlayouts = 1; /* Automatically resets layouts when only one client is visible */
+static const float mfact            = 0.5;  /* factor of master area size [0.05..0.95] */
+static const int nmaster            = 1;    /* number of clients in master area */
+static const int resizehints        = 1;    /* 1 means respect size hints in tiled resizals */
+static const int attachbelow        = 1;    /* 1 means attach after the currently active window */
+static const int autoresetlayouts   = 0;    /* Automatically resets layouts when only one client is visible */
+static const Bool viewontag         = True; /* Switch view on tag switch */
 
 #define FORCE_VSPLIT 1  /* nrowgrid layout: force two clients to always split vertically */
 #include "vanitygaps.c"
