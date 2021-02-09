@@ -72,7 +72,8 @@ static const Rule rules[] = {
 	{ "Blueman-manager",    NULL,         NULL,       	  0,         0,          1,          0,          1,        	-1 },
 	{ "MEGAsync",   				NULL,         NULL,       	  0,         0,          1,          0,          1,        	-1 },
 	{ "Transmission-gtk",   NULL,         NULL,       	  0,         1,          1,          0,          1,        	-1 },
-	{ "spterm",		          NULL,   	    NULL,		        SPTAG(0),	 1,			     1,          1,          0,         -1 },
+	{ NULL,		              "spterm",   	NULL,		        SPTAG(0),	 1,			     1,          1,          0,         -1 },
+	{ "zoom",               NULL,         NULL,           0,         1,          1,          0,          1,         -1 },
 };
 
 /* LAYOUTS */
