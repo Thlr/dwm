@@ -37,7 +37,7 @@ static const char col_gray3[]       = "#bbbbbb";
 static const char col_gray4[]       = "#eeeeee";
 static const char col_cyan[]        = "#005577";
 static const char col_cyan_light[]  = "#196684";
-static const char col_red[] 				= "#af1b1b";
+static const char col_red[] 	    = "#af1b1b";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
@@ -64,15 +64,15 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class          			instance      title           tags mask  iscentered  isfloating  isterminal  noswallow  monitor */
-	{ NULL,    					    NULL,         "Event Tester", 0,         0,          0,          0,          1,        	-1 },
-	{ TERMCLASS,   					NULL,         NULL,       	  0,         0,          0,          1,          0,        	-1 },
-	{ "Gnome-calculator",   NULL,         NULL,       	  0,         1,          1,          0,          1,        	-1 },
-	{ "Pavucontrol",   			NULL,         NULL,       	  0,         1,          1,          0,          1,        	-1 },
-	{ "Blueman-manager",    NULL,         NULL,       	  0,         0,          1,          0,          1,        	-1 },
-	{ "MEGAsync",   				NULL,         NULL,       	  0,         0,          1,          0,          1,        	-1 },
-	{ "Transmission-gtk",   NULL,         NULL,       	  0,         1,          1,          0,          1,        	-1 },
-	{ NULL,		              "spterm",   	NULL,		        SPTAG(0),	 1,			     1,          1,          0,         -1 },
+	/* class          	instance      title           tags mask  iscentered  isfloating  isterminal  noswallow  monitor */
+	{ NULL,    	        NULL,         "Event Tester", 0,         0,          0,          0,          1,        	-1 },
+	{ TERMCLASS,   		NULL,         NULL,           0,         0,          0,          1,          0,        	-1 },
+	{ "Gnome-calculator",   NULL,         NULL,           0,         1,          1,          0,          1,        	-1 },
+	{ "Pavucontrol",   	NULL,         NULL,           0,         1,          1,          0,          1,        	-1 },
+	{ "Blueman-manager",    NULL,         NULL,           0,         0,          1,          0,          1,        	-1 },
+	{ "MEGAsync",   	NULL,         NULL,           0,         0,          1,          0,          1,        	-1 },
+	{ "Transmission-gtk",   NULL,         NULL,           0,         1,          1,          0,          1,        	-1 },
+	{ NULL,		        "spterm",     NULL,           SPTAG(0),	 1,	     1,          1,          0,         -1 },
 	{ "zoom",               NULL,         NULL,           0,         1,          1,          0,          1,         -1 },
 };
 
@@ -166,23 +166,23 @@ static Key keys[] = {
 	{ MODKEY,                   XK_h,                     setmfact,       {.f = -0.02} },
 	{ MODKEY,                   XK_l,                     setmfact,       {.f = +0.02} },
 	{ MODKEY,                   XK_equal,                 setmfact,       {.f = 1 + mfact} }, // reset mfact
-	{ MODKEY|ShiftMask,         XK_h,     							  setcfact,       {.f = -0.25} },
-	{ MODKEY|ShiftMask,         XK_l,     							  setcfact,       {.f = +0.25} },
-	{ MODKEY|ShiftMask,         XK_equal,     					  setcfact,       {.f =  0.00} }, // reset cfact
+	{ MODKEY|ShiftMask,         XK_h,                     setcfact,       {.f = -0.25} },
+	{ MODKEY|ShiftMask,         XK_l,                     setcfact,       {.f = +0.25} },
+	{ MODKEY|ShiftMask,         XK_equal,                 setcfact,       {.f =  0.00} }, // reset cfact
 	{ MODKEY,                   XK_space,                 zoom,           {0} },
-	{ MODKEY,             			XK_f,                     togglefullscr,  {0} },
+	{ MODKEY,             	    XK_f,                     togglefullscr,  {0} },
 	{ MODKEY|ShiftMask,         XK_space,                 togglefloating, {0} },
-	{ MODKEY, 				          XK_q,                     killclient,     {0} },
+	{ MODKEY, 		    XK_q,                     killclient,     {0} },
 	{ MODKEY,                   XK_s,                     togglesticky,   {0} },
-  { MODKEY,                   XK_i,                     incnmaster,     {.i = +1 } },
-  { MODKEY|ShiftMask,         XK_i,                     incnmaster,     {.i = -1 } },
+        { MODKEY,                   XK_i,                     incnmaster,     {.i = +1 } },
+        { MODKEY|ShiftMask,         XK_i,                     incnmaster,     {.i = -1 } },
 	{ MODKEY,                   XK_o,                     resetnmaster,   {0} },
 	{ MODKEY|ShiftMask,         XK_o,                     resetlayout,    {0} },
 
 	/* layouts */
 	{ MODKEY,                   XK_t,                     setlayout,      {.v = &layouts[0]} }, // tile
 	{ MODKEY|ShiftMask,         XK_t,                     setlayout,      {.v = &layouts[1]} }, // bstacks
-	{ MODKEY,    			          XK_y,                     setlayout,      {.v = &layouts[2]} }, // spiral
+	{ MODKEY,                   XK_y,                     setlayout,      {.v = &layouts[2]} }, // spiral
 	{ MODKEY|ShiftMask,         XK_y,                     setlayout,      {.v = &layouts[3]} }, // dwindle
 	{ MODKEY,                   XK_u,                     setlayout,      {.v = &layouts[4]} }, // deck
 	{ MODKEY|ShiftMask,         XK_u,                     setlayout,      {.v = &layouts[5]} }, // monocle
@@ -192,7 +192,7 @@ static Key keys[] = {
 	{ MODKEY,              	    XK_a,                     togglegaps,     {0} },
 	{ MODKEY|ShiftMask,         XK_a,                     defaultgaps,    {0} },
 	{ MODKEY,                   XK_w,                     incrgaps,       {.i = +3 } },
-	{ MODKEY, 									XK_x,                     incrgaps,       {.i = -3 } },
+	{ MODKEY, 	            XK_x,                     incrgaps,       {.i = -3 } },
 
 	/* scratchpads */
 	{ MODKEY,                   XK_z,                     togglescratch,  {.ui = 0 } },
@@ -217,38 +217,38 @@ static Key keys[] = {
 	/* tags */
 	{ MODKEY,                   XK_Tab,                   view,           {0} },
 	TAGKEYS(                    XK_ampersand,                             0)
-	TAGKEYS(                    XK_eacute,		               	            1)
-	TAGKEYS(                    XK_quotedbl,	               		          2)
-	TAGKEYS(                    XK_apostrophe,               			        3)
-	TAGKEYS(                    XK_parenleft,	               		          4)
-	TAGKEYS(                    XK_minus,			                            5)
-	TAGKEYS(                    XK_egrave,		               	            6)
-	TAGKEYS(                    XK_underscore,               			        7)
-	TAGKEYS(                    XK_ccedilla,	               		          8)
-	{ MODKEY,		 								XK_agrave,                view,	          {.ui = ~0 } },
+	TAGKEYS(                    XK_eacute,		               	      1)
+	TAGKEYS(                    XK_quotedbl,	               	      2)
+	TAGKEYS(                    XK_apostrophe,                            3)
+	TAGKEYS(                    XK_parenleft,	                      4)
+	TAGKEYS(                    XK_minus,			              5)
+	TAGKEYS(                    XK_egrave,		                      6)
+	TAGKEYS(                    XK_underscore,                            7)
+	TAGKEYS(                    XK_ccedilla,	                      8)
+	{ MODKEY,		    XK_agrave,                view,	      {.ui = ~0 } },
 
 	/* audio */
-	{ MODKEY, 									XK_asterisk,              spawn,          SHCMD(incvolcmd) },
-	{ MODKEY|ShiftMask,					XK_asterisk,              spawn,          SHCMD(incvolpluscmd) },
-	{ MODKEY, 									XK_ugrave,                spawn,          SHCMD(decvolcmd) },
-	{ MODKEY|ShiftMask,					XK_ugrave,                spawn,          SHCMD(decvolpluscmd) },
-	{ MODKEY, 									XK_m,                     spawn,          SHCMD(mutecmd) },
-	{ MODKEY|ShiftMask,					XK_m,                     spawn,          SHCMD(micmutecmd) },
+	{ MODKEY,                   XK_asterisk,              spawn,          SHCMD(incvolcmd) },
+	{ MODKEY|ShiftMask,         XK_asterisk,              spawn,          SHCMD(incvolpluscmd) },
+	{ MODKEY, 		    XK_ugrave,                spawn,          SHCMD(decvolcmd) },
+	{ MODKEY|ShiftMask,	    XK_ugrave,                spawn,          SHCMD(decvolpluscmd) },
+	{ MODKEY, 	            XK_m,                     spawn,          SHCMD(mutecmd) },
+	{ MODKEY|ShiftMask,	    XK_m,                     spawn,          SHCMD(micmutecmd) },
 
 	/* special keys */
-	{ 0, 												XK_Print,     		    		spawn,          SHCMD(screenshotcmd) },
-	{ 0, 												XF86XK_AudioMute,         spawn,          SHCMD(mutecmd) },
-	{ 0, 												XF86XK_AudioRaiseVolume,  spawn,          SHCMD(incvolcmd) },
-	{ 0, 												XF86XK_AudioLowerVolume,  spawn,          SHCMD(decvolcmd) },
-	{ 0, 												XF86XK_AudioMicMute,      spawn,          SHCMD(micmutecmd) },
-	{ 0, 												XF86XK_PowerOff,      		spawn,          SHCMD(sysactcmd) },
-	{ 0, 												XF86XK_Calculator,     		spawn,          SHCMD(calculatorcmd) },
-	{ 0, 												XF86XK_Sleep,     		    spawn,          SHCMD(sleepcmd) },
-	{ 0, 												XF86XK_TouchpadToggle,    spawn,          SHCMD(toggletouchpadcmd) },
-	{ 0, 												XF86XK_TouchpadOn,        spawn,          SHCMD(touchpadoncmd) },
-	{ 0, 												XF86XK_TouchpadOff,       spawn,          SHCMD(touchpadoffcmd) },
-	{ 0, 												XF86XK_MonBrightnessUp,   spawn,          SHCMD(incbrightnesscmd) },
-	{ 0, 												XF86XK_MonBrightnessDown, spawn,          SHCMD(decbrightnesscmd) },
+	{ 0, 			    XK_Print,     	      spawn,          SHCMD(screenshotcmd) },
+	{ 0,                        XF86XK_AudioMute,         spawn,          SHCMD(mutecmd) },
+	{ 0,                        XF86XK_AudioRaiseVolume,  spawn,          SHCMD(incvolcmd) },
+	{ 0,                        XF86XK_AudioLowerVolume,  spawn,          SHCMD(decvolcmd) },
+	{ 0,                        XF86XK_AudioMicMute,      spawn,          SHCMD(micmutecmd) },
+	{ 0,                        XF86XK_PowerOff,          spawn,          SHCMD(sysactcmd) },
+	{ 0,                        XF86XK_Calculator,        spawn,          SHCMD(calculatorcmd) },
+	{ 0,                        XF86XK_Sleep,     	      spawn,          SHCMD(sleepcmd) },
+	{ 0,                        XF86XK_TouchpadToggle,    spawn,          SHCMD(toggletouchpadcmd) },
+	{ 0,                        XF86XK_TouchpadOn,        spawn,          SHCMD(touchpadoncmd) },
+	{ 0,                        XF86XK_TouchpadOff,       spawn,          SHCMD(touchpadoffcmd) },
+	{ 0,                        XF86XK_MonBrightnessUp,   spawn,          SHCMD(incbrightnesscmd) },
+	{ 0,                        XF86XK_MonBrightnessDown, spawn,          SHCMD(decbrightnesscmd) },
 };
 
 /* BUTTON DEFINITIONS */
