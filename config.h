@@ -166,8 +166,8 @@ static Key keys[] = {
 	{ MODKEY,                   XK_h,                     setmfact,       {.f = -0.02} },
 	{ MODKEY,                   XK_l,                     setmfact,       {.f = +0.02} },
 	{ MODKEY,                   XK_equal,                 setmfact,       {.f = 1 + mfact} }, // reset mfact
-	{ MODKEY|ShiftMask,         XK_h,                     setcfact,       {.f = -0.25} },
-	{ MODKEY|ShiftMask,         XK_l,                     setcfact,       {.f = +0.25} },
+	{ MODKEY|ShiftMask,         XK_h,                     setcfact,       {.f = -0.2} },
+	{ MODKEY|ShiftMask,         XK_l,                     setcfact,       {.f = +0.2} },
 	{ MODKEY|ShiftMask,         XK_equal,                 setcfact,       {.f =  0.00} }, // reset cfact
 	{ MODKEY,                   XK_space,                 zoom,           {0} },
 	{ MODKEY,             	    XK_f,                     togglefullscr,  {0} },
@@ -189,8 +189,8 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,         XK_f,                     setlayout,      {.v = &layouts[6]} }, // floating
 
 	/* gaps */
-	{ MODKEY,              	    XK_a,                     togglegaps,     {0} },
-	{ MODKEY|ShiftMask,         XK_a,                     defaultgaps,    {0} },
+	{ MODKEY,              	    XK_g,                     togglegaps,     {0} },
+	{ MODKEY|ShiftMask,         XK_g,                     defaultgaps,    {0} },
 	{ MODKEY,                   XK_w,                     incrgaps,       {.i = +3 } },
 	{ MODKEY, 	            XK_x,                     incrgaps,       {.i = -3 } },
 
@@ -226,6 +226,9 @@ static Key keys[] = {
 	TAGKEYS(                    XK_underscore,                            7)
 	TAGKEYS(                    XK_ccedilla,	                      8)
 	{ MODKEY,		    XK_agrave,                view,	      {.ui = ~0 } },
+
+	/* toggle touchpad */
+	{ MODKEY,                   XK_n,              	      spawn,          SHCMD(toggletouchpadcmd) },
 
 	/* audio */
 	{ MODKEY,                   XK_asterisk,              spawn,          SHCMD(incvolcmd) },
